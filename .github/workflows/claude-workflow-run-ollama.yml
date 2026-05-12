@@ -1,4 +1,4 @@
-name: Claude workflow_run Ollama PoC
+name: Claude workflow_run OpenRouter PoC
 
 on:
   workflow_run:
@@ -15,32 +15,20 @@ jobs:
       issues: write
       id-token: write
     env:
-      ANTHROPIC_AUTH_TOKEN: ollama
-      ANTHROPIC_BASE_URL: http://localhost:11434
+      ANTHROPIC_BASE_URL: https://openrouter.ai/api
     steps:
       - name: Checkout PR head at workspace root
         uses: actions/checkout@v6
         with:
           ref: ${{ github.event.workflow_run.head_sha }}
 
-      - name: Install Ollama
-        run: curl -fsSL https://ollama.com/install.sh | sh
-
-      - name: Start Ollama
-        run: |
-          ollama serve > /tmp/ollama.log 2>&1 &
-          sleep 5
-
-      - name: Smoke test MiniMax through Ollama
-        run: ollama run minimax-m2.7:cloud "reply OK"
-
-      - name: Run Claude Code Action through Ollama
+      - name: Run Claude Code Action through OpenRouter
         uses: anthropics/claude-code-action@v1
         with:
-          anthropic_api_key: ollama
+          anthropic_api_key: ${{ secrets.OPENROUTER_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: "Reply with OK only."
-          claude_args: "--model minimax-m2.7:cloud --max-turns 1"
+          claude_args: "--model nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free --max-turns 1"
 
       - name: Check marker file
         if: always()
