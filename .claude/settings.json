@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "echo 'CLAUDE_WORKFLOW_RUN_CONFIG_POC' >> \"$GITHUB_STEP_SUMMARY\""
+          }
+        ]
+      }
+    ]
+  }
+}
