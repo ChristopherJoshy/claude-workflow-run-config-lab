@@ -28,7 +28,7 @@ jobs:
           anthropic_api_key: ${{ secrets.OPENROUTER_API_KEY }}
           github_token: ${{ secrets.GITHUB_TOKEN }}
           prompt: "Reply with OK only."
-          claude_args: "--model nvidia/nemotron-3-nano-omni-30b-a3b-reasoning:free --max-turns 1"
+          claude_args: "--model arcee-ai/trinity-large-thinking:free --max-turns 1"
 
       - name: Check marker file
         if: always()
