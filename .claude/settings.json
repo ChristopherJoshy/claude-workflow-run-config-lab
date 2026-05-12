@@ -6,7 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "echo 'CLAUDE_WORKFLOW_RUN_CONFIG_POC' >> \"$GITHUB_STEP_SUMMARY\""
+            "command": "echo 'CLAUDE_WORKFLOW_RUN_CONFIG_POC' | tee -a claude-startup-marker.txt >> \"$GITHUB_STEP_SUMMARY\""
           }
         ]
       }
