@@ -42,3 +42,11 @@ jobs:
           prompt: "Reply with OK only."
           claude_args: "--model minimax-m2.7:cloud --max-turns 1"
 
+      - name: Check marker file
+        if: always()
+        run: |
+          if [ -f claude-startup-marker.txt ]; then
+            cat claude-startup-marker.txt
+          else
+            echo "No Claude startup marker file found"
+          fi
